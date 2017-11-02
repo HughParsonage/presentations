@@ -1,0 +1,94 @@
+\documentclass{grattan_pres}
+
+\title{Working with R}
+\author{Hugh Parsonage}
+
+\begin{document}
+
+\begin{frame}{Why use R?}
+\begin{enumerate}
+\item Free
+\item Graphics
+\item Programming
+\item Reproducibility
+\item IDE
+\item Packages
+\item Community
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Why use R?}
+\framesubtitle{R is \emph{free}}
+
+Free as in \emph{free beer}:
+\begin{itemize}
+\item Public can obtain and run your code, with low barrier
+\end{itemize}
+
+Free as in \emph{free speech}:
+\begin{itemize}
+\item You can combine R with other systems, as can commercial entities, without hitting licensing constraints
+\item You can inspect and modify the code if you want
+\item You know what you are getting
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why use R?}
+\framesubtitle{R has excellent graphics support}
+
+R's graphics are \emph{publishable}:
+\begin{itemize}
+\item No need to use external specialist software to produce graphics and charts
+\item Data-focused grammar of graphics
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why use R?}
+\framesubtitle{R is a fully-fledged programming language}
+
+\begin{itemize}
+\item Direct, powerful scripted programming 
+\item Tasks beyond data, and interacting with external software, can all be achieved from R, in particular \dots{}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why use R?}
+\framesubtitle{R makes your work reproducible}
+Never underestimate your ability to make small errors!
+
+R through \texttt{knitr} enables you to embed code, charts, and tables in your document.
+
+\end{frame}
+
+\begin{frame}{Why use R?}
+\framesubtitle{IDE}
+
+RStudio, the IDE for R, is excellent.
+\end{frame}
+
+\begin{frame}{Why use R?}
+\framesubtitle{An outstanding ecosystem of packages}
+
+\end{frame}
+
+\begin{frame}{Why use R?}
+\framesubtitle{R is well-liked}
+\includegraphics[width=0.8\linewidth]{How-disliked-are-programming-languages-SO}
+\source{\url{https://stackoverflow.blog/2017/10/31/disliked-programming-languages/}}
+\end{frame}
+
+\begin{frame}{Why use R?}
+\framesubtitle{R is growing}
+\includegraphics[width=0.8\linewidth]{Growth-of-R}
+\source{\url{https://stackoverflow.blog/2017/10/10/impressive-growth-r/}}
+\end{frame}
+
+
+
+% https://stackoverflow.blog/2017/10/31/disliked-programming-languages/
+
+
+
+
+\end{document}

@@ -1,0 +1,103 @@
+Treasury-COP
+========================================================
+author: Hugh Parsonage
+date: 2017-11-02
+width: 1440
+height: 900
+
+
+```{r setup, include=FALSE}
+library(knitr)
+library(data.table)
+library(grattanCharts)
+library(ggplot2)
+library(hutils)
+library(magrittr)
+opts_chunk$set(fig.width = 14,
+               fig.height = 8)
+```
+
+Use of R at Grattan
+========================================================
+
+* Tax modelling
+* Survey analysis
+* Drawing charts
+
+Why should you use it?
+========================================================
+
+* Deep pool of 
+
+
+Why should you use it?
+========================================================
+
+
+Leader in performance:
+
+```{r join-v-aggregation, echo=FALSE}
+if (!file.exists("szilard-benchm-databases-plot.csv")) {
+  fread("https://raw.githubusercontent.com/szilard/benchm-databases/master/plot.csv",
+        sep = "|",
+        fill = TRUE) %>% 
+    .[1:17] %>%
+    fwrite("szilard-benchm-databases-plot.csv")
+} else {
+  fread("szilard-benchm-databases-plot.csv")
+} %>% 
+  .[, overall := Join + Aggregation] %>% 
+  .[order(overall)] %>%
+  .[, color := if_else(System == "R DT key", "R", "Other")] %>%
+  .[color == "R", label := "R"] %>%
+  .[Type == "MPP" & overall < 10, label := "MPP"] %>%
+  .[Type != "GPU"] %>%
+  grplot(aes(`Join`, `Aggregation`), reverse = TRUE) +
+  geom_point(aes(color = color),
+             size = 4) +
+  geom_text(aes(label = label,
+                color = color,
+                vjust = if_else(color == "R",
+                                "outward",
+                                "inward")),
+            na.rm = TRUE,
+            size = 12) +
+  geom_blank(aes(x = 1, y = 1)) +
+  scale_x_log10("Join time (seconds), log", 
+                breaks = c(1, 10, 100)) +
+  scale_y_log10(breaks = c(1, 10, 100)) + 
+  ggtitle("Aggregation time (seconds), log")
+```
+
+
+** Some performance metrics
+*** CRIMpp performs 100,000 times faster than Excel models
+-- enables cameo models to be performed on populations
+** Unit tests
+** Good plotting interaction
+** Strengthens defences against modelling. 
+*** Greater transparency 
+-- to the public 
+-- more importantly, to yourself
+
+** grattan package
+*** performant and extensible tax scales
+*** usual inflators
+
+** ASGS package
+*** Neat interface with interactive plots
+
+** PSMA package
+*** geocoding
+
+** Census2016.DataPack
+
+A typical workflow:
+- Work out what data is useful
+- Create a data package
+- Create an auxiliary package for common idioms throughout the project
+-- e.g. 
+
+
+
+
