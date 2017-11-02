@@ -64,6 +64,11 @@ R's graphics are \emph{publishable}:
 \end{frame}
 
 \begin{frame}{Why use R?}
+\framesubtitle{R is the fastest}
+\includegraphics{MattDowle-gone-too-far.jpg}
+\end{frame}
+
+\begin{frame}{Why use R?}
 \framesubtitle{R makes your work reproducible}
 \begin{itemize}
 \item[] Never underestimate your ability to make small errors!
