@@ -1,0 +1,402 @@
+r-pkgs
+========================================================
+author: Hugh Parsonage
+date: 2017-10-24
+width: 1440
+height: 900
+
+```{r loadPackages, echo=FALSE}
+library(knitr)
+library(magrittr)
+library(ggplot2)
+opts_chunk$set(fig.width = 14,
+               fig.height = 7)
+```
+
+R packages
+========================================================
+Why packages?
+
+* Iterating is hard
+* Copying and pasting is a lot more difficult than you might think
+* Packages are fast and portable
+* Packages force best practice:
+    * unit test suites
+    * documentation of datasets and functions
+    
+Types of packages
+========================================================
+
+Data packages:
+* `taxstats`
+* `sih.hilda.1314`
+* `sihData` `hildaData`
+* `Census2016`, `Census2016.DataPack`
+* `ASGS`
+* `nsw.property.sales`
+
+Types of packages
+========================================================
+
+Other packages:
+* `grattan`
+* `PSMA`
+* `sihExtra` `hildaExtra`
+* `grattanReporter`
+* `TeXCheckR`
+* `grattanCharts`
+* `bomrang`
+
+Tax packages
+========================================================
+type: section
+
+
+
+`grattan v1.5.2.3`
+========================================================
+
+```{r}
+library(grattan)
+```
+
+Semantic versioning with data update suffix 
+
+`grattan vX.Y.Z.d`:
+
+* `X` increments on non-backwards-compatible changes
+* `Y` increments on new feature
+* `Z` increments on bug-fixes
+* `d` increments on data updates from ABS (at least every month)
+
+
+`taxstats v0.0.4.1314`
+========================================================
+Semantic versioning with non-standard data suffix: `1314` will increment to `1415` when the 2014-15 sample file is released.
+
+Not on CRAN. Use my repository: <https://hughparsonage.github.io/drat>
+
+* Lazily loads the 2% sample files for the 2011-12, 2012-13, 2013-14 personal income tax collections and 1% sample files since 2003-04
+* Table 1 for selected items, individual 1979-2014
+
+```{r median_taxable}
+library(data.table)
+library(taxstats)
+get_sample_files_all()[, .(median_taxable_income = median(Taxable_Income)), by = "fy.year"]
+```
+
+|fy.year | median_taxable_income|
+|:-------|---------------------:|
+|2003-04 |               28611.5|
+|2004-05 |               29782.0|
+|2005-06 |               30946.0|
+|2006-07 |               32108.0|
+|2007-08 |               33263.0|
+|2008-09 |               34749.0|
+|2009-10 |               35598.5|
+|2010-11 |               37865.0|
+|2011-12 |               39848.0|
+|2012-13 |               41561.0|
+|2013-14 |               42237.0|
+
+`taxstats v0.0.4.1314`
+========================================================
+
+* Table 1 for selected items, individual 1979-2014
+
+```{r Medicare-levy-surcharge}
+
+individuals_table1_201314 %>% .[Selected_items == "Medicare levy surcharge"] %>% .[complete.cases(.)] %>% ggplot(aes(x = fy_year, y = Count)) + geom_line(group = 1)
+```
+
+sih.hilda.1314
+========================================================
+
+Convenience package for wealth and income data from the 2013-14 series of HILDA and SIH:
+
+```
+> svy_id_income
+       survey         id_hh        income_type    income
+    1:  hilda        100001 disposable regular 1*****.00
+    2:  hilda        100001   disposable total 1*****.00
+    3:  hilda        100001        gross total 1-----.00
+    4:  hilda        100001      gross regular 1-----.00
+    5:  hilda        100011 disposable regular  8****.00
+   ---                                                  
+94796:  sih13 SIH13E8999997        gross total 1*****.02
+94797:  sih13 SIH13E8999998 disposable regular      0.00
+94798:  sih13 SIH13E8999998   disposable total  9****.82
+94799:  sih13 SIH13E8999998      gross regular  *****.35
+94800:  sih13 SIH13E8999998        gross total  9****.17
+```
+
+Needs to be installed from source.
+
+sihData hildaData
+========================================================
+Houses the data from each series. 
+
+
+Census2016 0.2.0
+========================================================
+
+Initial version of Census time series data. On CRAN. Will be promoted to 1.0.0 and frozen in the new year following data updates.
+
+```{r Census2016}
+library(Census2016)
+```
+
+Contains, for each SA2, and the 2006, 2011, 2016 years, the time-series profiles. 
+
+Census2016 0.2.0
+========================================================
+
+
+```{r Census2016-eg}
+Census2016_wide_by_SA2_year %>%
+  .[, .(sa2_name, year, born_in_australia)]
+```
+
+Use `see_question()` in RStudio to view the question associated with a table.
+
+Census2016.DataPack 0.1.0
+========================================================
+
+Large package, contains the data packs from the 2016 Census. 
+Greater detail, at all the statistical areas.
+
+Enhanced by the autocompletion features in RStudio IDE. Type `SA2__` and then scroll to the table of interest.
+
+Motivated by arcane column names in the data packs (*e.g.* `Se_d_r_or_t_h_t_Tot_NofB_0_ib`)
+
+```{r Census2016-DataPack-eg}
+library(Census2016.DataPack)
+SA2__CountryOfBirth_YearOfArrival
+```
+
+nsw.property.sales
+========================================================
+
+Every property sale in NSW since 1990, in a tidy form and land value information (forthcoming).
+
+* Original data is about 80,000 files in a bespoke format (haven't found a program that can open them directly --- the website says that you can open them in Excel, but it's not true, and even so you can only open them one at a time).
+
+* Original data has weird headings and things like zoning code change over time
+
+`grattan v1.5.2.3`
+========================================================
+Major updates occur at least as frequently as the Budget.
+
+`grattan v1.5.2.3`
+========================================================
+Mainly useful when analysing the sample files:
+
+* `project()` takes a sample file and forecasts every variable in it in a reasonable way. For example work-related expenses are inflated by the appropriate index in the consumer price series; salaries are inflated by the wage price index; the number of taxpayers by the labour force index. Forecasts are performed on sample files in the future:
+
+```r
+sample_file_1819 <- project(sample_file_1314, h = 5L) # horizon = 5 years
+```
+
+`grattan v1.5.2.3`
+========================================================
+Mainly useful when analysing the sample files:
+
+* `income_tax()` calculates the income tax, including the Medicare levy, and all offsets that are possible to calculate using the sample file. Nice and quick: 10M/s. Treasury's CAPITA does more but *only* on variables we can't access.
+
+
+```r
+sample_file_1314[, tax := income_tax(Taxable_Income, "2013-14")]
+```
+
+`grattan v1.5.2.3`
+========================================================
+
+Similarly:
+
+* `medicare_levy()`. Calculating the Medicare levy is *very* complicated. Requires sifting through many tax rulings over decades to properly calculate. ATO public fact sheets are not only dense but frequently *wrong*. 
+
+* `sapto()` and `bto()`: similarly very difficult. (Treasury annoyingly admits in CAPITA they have to assume away details on how s.160AAAA(4)(b) is meant to operate.) `lito()` not so much but easy to mess up.
+
+* `student_repayment()`: calculates HECS/HELP/etc repayment 
+
+
+`grattan v1.5.2.3`
+========================================================
+
+Other more common but easier utilities:
+
+```{r}
+cpi_inflator(from_fy = "2012-13", to_fy = "2015-16")
+```
+
+`grattan v1.5.2.3`
+========================================================
+
+Other more common but easier utilities:
+
+```{r}
+wage_inflator(from_fy = "2012-13", to_fy = "2015-16")
+```
+
+
+`grattan v1.5.2.3`
+========================================================
+
+Other more common but easier utilities:
+
+```{r}
+lf_inflator_fy(from_fy = "2012-13", to_fy = "2015-16")
+```
+
+
+
+Also `weighted_ntile` for creating quantiles on weighted data
+
+
+`grattan v1.5.2.3`
+========================================================
+Superannuation modelling:
+
+```{r, eval=FALSE}
+apply_super_caps_and_div293(.sample.file, 
+                            div293_threshold = 200e3,
+                            cap = 20e3,
+                            age_based_cap = FALSE)
+```
+
+
+Australian geography
+========================================================
+type: section
+
+
+`ASGS`
+========================================================
+
+Big package (1 GB):
+
+* Houses 2011-2016 shapefiles: SA[1-4], postcodes, LGAs, destination zones, states, as well as simplified/lighter versions for the web etc
+* `grattan_leaflet()` produces interactive maps of a table of location vs variable in Grattan palette
+* Functions for converting lat-lons to the statistical area containing it.
+
+PSMA
+========================================================
+
+address ---> lat-lon:
+
+```{r PSMA-geocode}
+library(PSMA)
+geocode(number_first = 8,
+        street_name = "Malvina",
+        street_type = "Place",
+        postcode = 3053)
+```
+
+First query in a session takes a few seconds (to load the lookup tables).
+Doesn't take much longer to do a few million addresses.
+
+PSMA
+========================================================
+transition: none
+address <--- lat-lon:
+
+```{r PSMA-revgeocode}
+library(PSMA)
+revgeocode(-37.80058, 144.9618)
+```
+
+LaTeX utilities
+========================================================
+type: section
+
+grattanReporter and TeXCheckR
+========================================================
+
+`grattanReporter` depends on `TeXCheckR`.
+The latter is on CRAN and is more general. 
+
+Highlights:
+
+* In RStudio, encountering an error 'pops' the cursor to the location of the error (and copies to the clipboard a suggested spelling for `check_spelling`)
+* `fread_bib` for queries on the master bibliography *e.g.* all entries by a particular author
+* `extract_LaTeX_argument`: how many times has an author been cited? Get all figure paths.
+
+
+
+Charts
+========================================================
+type: section
+
+grattanCharts
+========================================================
+
+On GitHub:
+
+```{r grattanCharts}
+library(grattanCharts)
+```
+
+* `annotate_coastline`: overlays the coastline to a map
+* `bundle_chart_data()` and `chart_data()` dynamically produce chart data packs (provided they're simple enough to be passed to the Excel API)
+* Contains for convenience, the dimensions of reports, including the aspect ratios of charts
+* Palette `gpal()` and extended palette `gpalx()`
+
+grattanCharts
+========================================================
+
+* English conversions of numbers
+
+```{r grattan_frac}
+grattan_frac(0.51)
+grattan_frac(0.49)
+grattan_frac(0.49, hedges = c("under", "over"))
+```
+
+grattanCharts
+========================================================
+
+* English conversions of numbers
+
+```{r texNum}
+texNum(235709234)
+
+texNum(235709234, .suffix = "million")
+```
+
+
+grattanCharts
+========================================================
+
+* `grplot` for grattan-style charts using `ggplot2`
+* `save_pptx` for conversion to presentation or report-style templates
+* `grattan_waterfall` for a very simple interface to create (better) waterfall charts
+
+
+Miscellaneous
+========================================================
+type: section
+
+hutils
+========================================================
+General R programming utilities
+
+Not much direct application to policy, but `haversine_distance` may be useful -- calculates distance between two points on the Earth with reasonable accuracy.
+
+
+bomrang
+========================================================
+
+Get weather data through the BOM API:
+
+* `get_current_weather()` weather in the last 72 hours at a particular station (fuzzily matched), or the nearest station to lat-lon
+* You have to buy data from earlier than 72 hours, but there's probably nothing to stop you downloading it every 3 days.
+* `get_precis_forecast()` 7-day forecasts
+
+
+
+
+
+
+
+
+

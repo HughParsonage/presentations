@@ -240,8 +240,6 @@ Getting competitive with Government modelling. And faster:
 
 
 
-# How we use R
-========================================================
 
 
 
@@ -250,6 +248,39 @@ Getting competitive with Government modelling. And faster:
 Moving to LaTeX
 ========================================================
 
+Grattan uses LaTeX for its reports (via ShareLaTeX).
+Occasionally we use `knitr` if it makes sense.
+
+
+
+Surprises
+========================================================
+
+1. LaTeX produced uncontroversionally better output -- even though it was designed to be a replica of Word's output.
+
+
+
+Surprises
+========================================================
+
+1. LaTeX produced uncontroversionally better output -- even though it was designed to be a replica of Word's output.
+2. LaTeX is really easy.
+
+
+
+Surprises
+========================================================
+
+1. LaTeX produced uncontroversionally better output -- even though it was designed to be a replica of Word's output.
+2. LaTeX is really easy.
+3. LaTeX and R are difficult in ways we don't think about
+
+
+
+Installing things is hard
+========================================================
+
+![](installing-r-packages.jpg_large)
 
 
 
@@ -264,14 +295,5 @@ Moving to LaTeX
 
 
 
-
-
-
-
-
-
-
-
-Hugh Parsonage is from Grattan Institute, a public policy think tank based at the University of Melbourne's Parkville campus. R is used to solve a diverse range of problems at Grattan. In this presentation, Hugh will outline some of the packages that have been developed at Grattan, and focus on two: `grattan` a package for modelling the personal income tax system, and `grattanReporter` a package used to prepare and check our reports with Travis-CI. He will also mention some of the surprises they encountered when developing these packages and using LaTeX and R throughout the Institute.
 
 
