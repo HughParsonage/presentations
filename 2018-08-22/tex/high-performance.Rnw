@@ -1,0 +1,83 @@
+\documentclass{grattan_pres}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+
+\renewcommand{\mytitle}[1]{\title{#1\vspace{-2ex}}}
+\renewcommand{\authors}[1]{\author{#1\vspace{-3ex}}}
+
+\mytitle{Performance}
+\authors{Hugh Parsonage}
+\date{2018-08-21}
+
+\usepackage{verbatim}
+
+% \addbibresource{bibliography.bib}
+
+% \makeatletter
+% \newbox\@backgroundblock
+% \newenvironment{backgroundblock}[2]{%
+%   \global\setbox\@backgroundblock=\vbox\bgroup%
+%     \unvbox\@backgroundblock%
+%     \vbox to0pt\bgroup\vskip#2\hbox to0pt\bgroup\hskip#1\relax%
+% }{\egroup\egroup\egroup}
+% \addtobeamertemplate{background}{\box\@backgroundblock}{}
+% \makeatother
+
+% \newcommand{\lmr}{\fontfamily{lmr}\selectfont}
+% \newcommand{\rmLaTeX}{{\lmr\LaTeX{}}}
+
+\hypersetup{colorlinks,linkcolor=black,urlcolor=blue}
+\urlstyle{same}
+
+\begin{document}
+\section{Performance}
+\maketitle
+
+\begin{frame}{Why care about performance}
+	\begin{itemize}
+		\item Ask more questions 
+		\item Ask questions of more data
+		\item Provide answers faster
+		\item Fewer `interruptions': the difference bewtween a runtime of one second and one minute is \emph{much} more than 59\,seconds.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{The Golden Rules of Performance}
+
+\begin{enumerate}\fontsize{11pt}{25}\selectfont
+	\item<1-> \textbf{Measure}%\only<2->{\quad }
+	\item<3-> \textbf{Don't waste timing saving time}
+	% \includegraphics[width=0.5\textwidth]{is_it_worth_the_time.png}
+	\item<4-> \textbf{Don't be wrong}
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}[t]{Measure}
+\null\par
+
+	\begin{enumerate}
+		\item how long it currently takes
+		\item how long it should take
+		\item how long your improvement takes
+\end{enumerate}
+
+<<measuring, eval=FALSE>>=
+x <- rnorm(1e8)
+bench::system_time(mean(x))
+bench::mark(mean(x), sum(x) / length(x))
+library(microbenchmark)
+microbenchmark(mean(x), sum(x) / length(x))
+@
+
+\end{frame}
+
+% \begin{frame}{h}
+% \includegraphics[width=0.5\textwidth]{is_it_worth_the_time.png}
+
+% \end{frame}
+
+
+
+
+\end{document}

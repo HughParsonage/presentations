@@ -78,10 +78,12 @@ revgeocode(-37.80058, 144.9618)
 ```
 
 ```
-      distance ordering NUMBER_FIRST STREET_NAME STREET_TYPE_CODE POSTCODE
-1: 0.002640044        1           10     MALVINA            PLACE     3053
-   order BUILDING_NAME LOT_NUMBER FLAT_NUMBER ADDRESS_DETAIL_INTRNL_ID
-1:     1          <NA>       <NA>          NA                  9393231
+   ordering NUMBER_FIRST STREET_NAME STREET_TYPE_CODE POSTCODE
+1:        1           10     MALVINA            PLACE     3053
+   BUILDING_NAME LOT_NUMBER FLAT_NUMBER ADDRESS_DETAIL_INTRNL_ID
+1:          <NA>       <NA>          NA                  9512729
+      distance
+1: 0.002648125
 ```
 
 
@@ -179,7 +181,7 @@ cpi_inflator(100, from_fy = "2003-04", to_fy = "2017-18")
 ```
 
 ```
-[1] 140.399
+[1] 140.5237
 ```
 
 ```r
@@ -187,7 +189,7 @@ wage_inflator(100, from_fy = "2003-04", to_fy = "2017-18")
 ```
 
 ```
-[1] 154.8527
+[1] 154.9279
 ```
 
 ```r
@@ -195,7 +197,7 @@ lf_inflator_fy(100, from_fy = "2003-04", to_fy = "2017-18")
 ```
 
 ```
-[1] 131.4298
+[1] 131.437
 ```
 
 
@@ -250,6 +252,8 @@ Moving to LaTeX
 
 Grattan uses LaTeX for its reports (via ShareLaTeX).
 Occasionally we use `knitr` if it makes sense.
+
+
 
 
 

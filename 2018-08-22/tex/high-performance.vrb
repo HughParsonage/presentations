@@ -1,0 +1,17 @@
+\frametitle{Measure}
+\null\par
+
+	\begin{enumerate}
+		\item how long it currently takes
+		\item how long it should take
+		\item how long your improvement takes
+\end{enumerate}
+
+\begin{lstlisting}[style=Rstyle]
+x <- rnorm(1e8)
+bench::system_time(mean(x))
+bench::mark(mean(x), sum(x) / length(x))
+library(microbenchmark)
+microbenchmark(mean(x), sum(x) / length(x))
+\end{lstlisting}
+
